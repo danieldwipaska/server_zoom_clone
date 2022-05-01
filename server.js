@@ -8,6 +8,7 @@ const app = express();
 //MIDDLEWARES
 app.use(express.json());
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 //ROUTES
 app.get('/', (req, res) => {
