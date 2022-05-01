@@ -1,9 +1,14 @@
+const http = require('http');
 const express = require('express');
+const app = express();
 const dotenv = require('dotenv');
 const { v4: uuidv4 } = require('uuid');
 
+const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = socketio(server);
+
 dotenv.config();
-const app = express();
 
 //MIDDLEWARES
 app.use(express.json());
@@ -19,7 +24,14 @@ app.get('/:room', (req, res) => {
   res.render('room', { roomId: req.params.room });
 });
 
+io.on('connection', (socket) => {
+  socket.on('join-room', (roomId) => {
+    socket.join(roomId);
+    socket.broadcast.to(roomId).emit('user-connected');
+  });
+});
+
 //LISTEN
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('listening at port 3000!');
 });
