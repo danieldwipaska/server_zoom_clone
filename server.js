@@ -6,12 +6,11 @@ const app = express();
 
 //MIDDLEWARES
 app.use(express.json());
+app.set('view engine', 'ejs');
 
 //ROUTES
 app.get('/', (req, res) => {
-  res.json({
-    msg: 'This is your first response!',
-  });
+  res.render('room');
 });
 
 //LISTEN
