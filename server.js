@@ -29,6 +29,7 @@ app.get('/:room', (req, res) => {
   res.render('room', { roomId: req.params.room });
 });
 
+//WEB SOCKET CONNECTION
 io.on('connection', (socket) => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId);
@@ -37,6 +38,6 @@ io.on('connection', (socket) => {
 });
 
 //LISTEN
-server.listen(3030, () => {
-  console.log('listening at port 3030!');
+server.listen(3000, () => {
+  console.log('listening at port 3000!');
 });
